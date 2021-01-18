@@ -16,12 +16,17 @@
  * Loads client secrets from a local file.
  * @return {Promise} A promise to return the secrets.
  */
+const fs = require('fs');
+
 module.exports.getClientSecrets = () => {
   return new Promise((resolve, reject) => {
-    console.log('TODO: Get Client Secrets');
-    resolve({});
+    fs.readFile('client_secret.json', (err, content) => {
+      if (err) return reject('Error loading client secret file: ' + err);
+      console.log('loaded secrets...');
+      resolve(JSON.parse(content));
+    });
   });
-}
+};
 
 /**
  * Create an OAuth2 client promise with the given credentials.

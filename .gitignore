@@ -1,1 +1,5 @@
 .DS_Store
+start/client_secret.json
+finish/client_secret.json
+start/service_account_secret.json
+finish/service_account_secret.json
