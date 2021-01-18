@@ -34,6 +34,7 @@ module.exports.getClientSecrets = () => {
  * @return {Promise} A promise to return the OAuth client.
  */
 module.exports.authorize = (credentials) => {
+  console.log(credentials);
   return new Promise((resolve, reject) => {
     console.log('authorizing...');
     const clientSecret = credentials.installed.client_secret;
