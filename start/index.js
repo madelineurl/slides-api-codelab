@@ -22,9 +22,14 @@ const license = require('./license');
  */
 console.log('-- Start generating slides. --')
 auth.getClientSecrets()
+  // read OAuth credentials from client secret file
   .then(auth.authorize)
+  // call the authorize function with the returned credentials - authorizes the OAuth2 client to approve users
   .then(license.getLicenseData)
+  // takes in the returned credentials from the oauth client (oauth2 client object with secret, redirectURI, and token stored under 'credentials')
+  // returns an array with with the auth data and resulting license data from query
   .then(slides.createSlides)
+  // takes in the auth and license data, and interacts with drive / slides as needed
   .then(slides.openSlidesInBrowser)
   .then(() => {
     console.log('-- Finished generating slides. --');

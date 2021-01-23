@@ -45,10 +45,13 @@ module.exports.authorize = (credentials) => {
     // Check if we have previously stored a token.
     fs.readFile(TOKEN_PATH, (err, token) => {
       if (err) {
+        // this code block only happens if a token isn't stored
+        // user would be prompted to log in, in this case
         getNewToken(oauth2Client).then(() => {
           resolve(oauth2Client);
         });
       } else {
+        // apparently I have a token stored
         oauth2Client.credentials = JSON.parse(token);
         resolve(oauth2Client);
       }
@@ -63,6 +66,7 @@ module.exports.authorize = (credentials) => {
  * @return {Promise} A promise to modify the oauth2Client credentials.
  */
 
+//  user authorization is only prompted if the stored token fails
 function getNewToken(oauth2Client) {
   console.log('getting new auth token...');
   openurl.open(oauth2Client.generateAuthUrl({

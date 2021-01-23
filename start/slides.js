@@ -90,6 +90,8 @@ function createSlideJSON(licenseData, index) {
  * @return {Promise} A promise to return a new presentation.
  * @see https://developers.google.com/apis-explorer/#p/slides/v1/
  */
+
+//  creating slides
 module.exports.createSlides = (authAndGHData) => new Promise((resolve, reject) => {
   console.log('creating slides...');
   const [auth, ghData] = authAndGHData;
@@ -105,7 +107,9 @@ module.exports.createSlides = (authAndGHData) => new Promise((resolve, reject) =
   }, (err, presentation) => {
     if (err) return reject(err);
 
+    console.log('single GH data format before slidecreate -->', ghData[0])
     const allSlides = ghData.map((data, index) => createSlideJSON(data, index));
+    console.log('single slide after creatSlideJSON -->', allSlides[0])
     slideRequests = [].concat.apply([], allSlides); // flatten the slide requests
     slideRequests.push({
       replaceAllText: {
@@ -137,5 +141,5 @@ module.exports.createSlides = (authAndGHData) => new Promise((resolve, reject) =
  */
 module.exports.openSlidesInBrowser = (presentation) => {
   console.log('Presentation URL:', presentation.webViewLink);
-  openurl.open(presentation.webViewLink);
+  // openurl.open(presentation.webViewLink);
 };
